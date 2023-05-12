@@ -32,7 +32,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
     		"max(o.price) as max\r\n" + 
     		"FROM order_details as o\r\n" + 
     		"INNER JOIN products p ON o.product_id = p.product_id\r\n" + 
-    		"GROUP BY p.product_name;", nativeQuery = true)
+    		"GROUP BY p.product_name,p.product_id;", nativeQuery = true)
     public List<Object[]> repo();
     
     // Statistics by category sold
