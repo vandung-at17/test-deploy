@@ -39,7 +39,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 			+ "COUNT(*) AS SoLuong\r\n"
 			+ "FROM products p\r\n"
 			+ "JOIN categories c ON p.category_id = c.category_id\r\n"
-			+ "GROUP BY c.category_name;" , nativeQuery = true)
+			+ "GROUP BY c.category_name, c.category_id;" , nativeQuery = true)
 	List<Object[]> listCategoryByProductName();
 	
 	// Top 20 product best sale
