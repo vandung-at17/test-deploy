@@ -49,7 +49,7 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Long> {
 			"COUNT(*) AS SoLuong\r\n" + 
 			"FROM order_details as o\r\n" + 
 			"JOIN products as p ON o.product_id = p.product_id\r\n" + 
-			"GROUP BY p.product_id\r\n" +
+			"GROUP BY p.product_id,p.product_name\r\n" +
 			"ORDER by SoLuong DESC limit 20;", nativeQuery = true)
 	public List<Object[]> bestSaleProduct20();
 	
