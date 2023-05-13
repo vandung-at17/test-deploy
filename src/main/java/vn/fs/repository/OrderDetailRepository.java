@@ -22,17 +22,15 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
 	
 	// Statistics by product sold
 	// Thống kê sản phẩm đã bán
-    @Query(value = "SELECT p.product_id,\r\n" +
-    		"p.product_name,\r\n" +
-    		"p.status,\r\n" +
-    		"SUM(o.quantity) as quantity ,\r\n" + 
-    		"SUM(o.quantity * o.price) as sum,\r\n" + 
-    		"AVG(o.price) as avg,\r\n" + 
-    		"Min(o.price) as min,\r\n" + 
-    		"max(o.price) as max\r\n" + 
-    		"FROM order_details as o\r\n" + 
-    		"INNER JOIN products p ON o.product_id = p.product_id\r\n" + 
-    		"GROUP BY p.product_name,p.product_id;", nativeQuery = true)
+    @Query(value = "SELECT p.product_name , \r\n"
+    		+ "SUM(o.quantity) as quantity ,\r\n"
+    		+ "SUM(o.quantity * o.price) as sum,\r\n"
+    		+ "AVG(o.price) as avg,\r\n"
+    		+ "Min(o.price) as min, \r\n"
+    		+ "max(o.price) as max\r\n"
+    		+ "FROM order_details o\r\n"
+    		+ "INNER JOIN products p ON o.product_id = p.product_id\r\n"
+    		+ "GROUP BY p.product_name;", nativeQuery = true)
     public List<Object[]> repo();
     
     // Statistics by category sold
@@ -101,7 +99,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
     		"(SELECT count(*)\r\n" + 
     		"FROM order_details as o\r\n" + 
     		"INNER JOIN products p ON o.product_id = p.product_id\r\n" + 
-    		"GROUP BY p.product_name) as ds;", 
+    		"GROUP BY p.product_name,p.status) as ds;", 
     		nativeQuery = true)
     public int getTotalItem();
     
@@ -114,12 +112,12 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
     		"max(o.price) as max\r\n" + 
     		"FROM order_details as o\r\n" + 
     		"INNER JOIN products p ON o.product_id = p.product_id\r\n" + 
-    		"GROUP BY p.product_name",
+    		"GROUP BY p.product_name,p.status",
     		countQuery = "select count(*) from\r\n" + 
     		"(SELECT count(*)\r\n" + 
     		"FROM order_details as o\r\n" + 
     		"INNER JOIN products p ON o.product_id = p.product_id\r\n" + 
-    		"GROUP BY p.product_name) as ds",
+    		"GROUP BY p.product_name,p.status) as ds",
     		nativeQuery = true)
     public Page<Object[]> statisticsByProduct (Pageable pageable);
     
@@ -128,7 +126,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
     		"FROM order_details as o\r\n" + 
     		"INNER JOIN products p ON o.product_id = p.product_id\r\n" + 
     		"where p.product_name like %:keyword% \r\n" + 
-    		"GROUP BY p.product_name) as ds;", 
+    		"GROUP BY p.product_name,p.status) as ds;", 
     		nativeQuery = true)
     public int getTotalItem(@Param("keyword") String keyword );
     
@@ -142,13 +140,13 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
     		"FROM order_details as o\r\n" + 
     		"INNER JOIN products p ON o.product_id = p.product_id\r\n" +
     		"where p.product_name like %:keyword% \r\n" + 
-    		"GROUP BY p.product_name",
+    		"GROUP BY p.product_name,p.status",
     		countQuery = "select count(*) from\r\n" + 
     		"(SELECT count(*)\r\n" + 
     		"FROM order_details as o\r\n" + 
     		"INNER JOIN products p ON o.product_id = p.product_id\r\n" +
     		"where p.product_name like %:keyword% \r\n" + 
-    		"GROUP BY p.product_name) as ds",
+    		"GROUP BY p.product_name,p.status) as ds",
     		nativeQuery = true)
     public Page<Object[]> statisticsByProductOfKey (@Param("keyword") String keyword,Pageable pageable);
 }
