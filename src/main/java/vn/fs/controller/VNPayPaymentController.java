@@ -45,6 +45,7 @@ public class VNPayPaymentController {
         String vnp_TxnRef = VNPayConfig.getRandomNumber(8);
         String vnp_IpAddr = VNPayConfig.getIpAddress(req);
         String vnp_TmnCode = VNPayConfig.vnp_TmnCode;
+        vnp_TxnRef="27340017";
         vnp_IpAddr = "0:0:0:0:0:0:0:1";
         Map<String, String> vnp_Params = new HashMap<>();
         vnp_Params.put("vnp_Version", vnp_Version);
@@ -73,10 +74,12 @@ public class VNPayPaymentController {
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_CreateDate = formatter.format(cld.getTime());
+        vnp_CreateDate="20230515010809";
         vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
         
         cld.add(Calendar.MINUTE, 15);
         String vnp_ExpireDate = formatter.format(cld.getTime());
+        vnp_ExpireDate="20230515012309";
         vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
         
         List fieldNames = new ArrayList(vnp_Params.keySet());
