@@ -66,7 +66,7 @@ public class VNPayPaymentController {
         } else {
             vnp_Params.put("vnp_Locale", "vn");
         }
-        String urlrtu= "https://invincible-bridge-production.up.railway.app/"+"checkout_success";
+        String urlrtu= "https://invincible-bridge-production.up.railway.app/checkout_success";
         vnp_Params.put("vnp_ReturnUrl",urlrtu);
         vnp_Params.put("vnp_IpAddr", vnp_IpAddr);
 
