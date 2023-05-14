@@ -74,12 +74,12 @@ public class VNPayPaymentController {
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
         SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmmss");
         String vnp_CreateDate = formatter.format(cld.getTime());
-        vnp_CreateDate="20230515010809";
+        //vnp_CreateDate="20230515010809";
         vnp_Params.put("vnp_CreateDate", vnp_CreateDate);
         
         cld.add(Calendar.MINUTE, 15);
         String vnp_ExpireDate = formatter.format(cld.getTime());
-        vnp_ExpireDate="20230515012309";
+        //vnp_ExpireDate="20230515012309";
         vnp_Params.put("vnp_ExpireDate", vnp_ExpireDate);
         
         List fieldNames = new ArrayList(vnp_Params.keySet());
