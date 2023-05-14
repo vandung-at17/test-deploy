@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletRequest;
 public class VNPayConfig {
 	public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
     //public static String vnp_Returnurl = "http://localhost:8080/vnpay_jsp/vnpay_return.jsp";
-	public static String vnp_Returnurl = "http://localhost:8080/checkout";
+	//public static String vnp_Returnurl = "http://localhost:8080/checkout";
     public static String vnp_TmnCode = "ALUP067H";
     public static String vnp_HashSecret = "PDFVRZRVJSKTMTCKJYAPXFCLHSLHJUVJ";
     public static String vnp_apiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";
