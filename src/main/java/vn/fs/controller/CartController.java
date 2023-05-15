@@ -358,7 +358,7 @@ public class CartController extends CommomController {
 			String successUrlVnpay = Utils.getBaseURL(request)+"/"+URL_MOMOPAY_SUCCESS;
 			JSONObject json = new JSONObject();
 			long amount = 2000000;
-			long oder_id = 11;
+			long oder_id = 14;
 			String partnerCode = MomoPayConfig.PARTNER_CODE;
 			String accessKey = MomoPayConfig.ACCESS_KEY;
 			String secretKey = MomoPayConfig.SECRET_KEY;
