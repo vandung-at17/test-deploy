@@ -1,23 +1,10 @@
 package vn.fs.controller;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.TimeZone;
 
 import javax.mail.MessagingException;
 import javax.servlet.http.HttpServletRequest;
@@ -26,18 +13,10 @@ import javax.servlet.http.HttpSession;
 import javax.transaction.Transactional;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,10 +30,8 @@ import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 
 import vn.fs.commom.CommomDataService;
-import vn.fs.config.MomoPayConfig;
 import vn.fs.config.PaypalPaymentIntent;
 import vn.fs.config.PaypalPaymentMethod;
-import vn.fs.config.VNPayConfig;
 import vn.fs.converter.ProductConverter;
 import vn.fs.converter.UserConverter;
 import vn.fs.entities.CartItemEntity;
@@ -62,7 +39,6 @@ import vn.fs.entities.OrderDetailEntity;
 import vn.fs.entities.OrderEntity;
 import vn.fs.entities.ProductEntity;
 import vn.fs.entities.UserEntity;
-import vn.fs.model.dto.PaymentResDto;
 import vn.fs.model.dto.ProductDto;
 import vn.fs.model.dto.UserDto;
 import vn.fs.repository.OrderDetailRepository;
@@ -71,7 +47,6 @@ import vn.fs.repository.ProductRepository;
 import vn.fs.service.IProductService;
 import vn.fs.service.IShoppingCartService;
 import vn.fs.service.PaypalService;
-import vn.fs.util.MomoEncoderUtils;
 import vn.fs.util.QRCodeGenerator;
 import vn.fs.util.Utils;
 import vn.fs.util.VNPayUtil;
@@ -277,8 +252,7 @@ public class CartController extends CommomController {
 		}
 		
 		if (StringUtils.equals(checkOut, "vnpay")) {
-		    String url=	vnPayUtil.createVNPayPayment(request, response, totalPrice);
-			return url ;
+			return vnPayUtil.createVNPayPayment(request, response, totalPrice);
 			
 		}
 		if (StringUtils.equals(checkOut, "momopay")) {
