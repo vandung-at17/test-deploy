@@ -11,8 +11,8 @@ spring:
            - profile
                     
          facebook:
-          clientId: 1575957066249509
-          clientSecret: 19a4222dd0b02ff41952b1c0459c065d
+          clientId: 219571903914001
+          clientSecret: 435596afc80e4e9e6d0076a4e4951ea4
           accessTokenUri: https://graph.facebook.com/oauth/access_token
           userAuthorizationUri: https://www.facebook.com/dialog/oauth
           tokenName: oauth_token
