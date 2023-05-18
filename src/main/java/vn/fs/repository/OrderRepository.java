@@ -17,5 +17,8 @@ public interface OrderRepository extends JpaRepository<OrderEntity, Long> {
 
 	@Query(value = "select * from orders where user_id = ?1", nativeQuery = true)
 	List<OrderEntity> findOrderByUserId(Long id);
+	
+	@Query(value = "SELECT count(*) FROM orders", nativeQuery= true)
+	int sumOrder();
 
 }

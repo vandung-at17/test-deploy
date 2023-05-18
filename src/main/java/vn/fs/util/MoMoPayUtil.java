@@ -7,6 +7,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,18 +19,18 @@ import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.json.JSONObject;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import vn.fs.config.MomoPayConfig;
 
 @Component
 public class MoMoPayUtil {
-	public ResponseEntity<?>createMoMoPayment(HttpServletRequest req, HttpServletResponse resp) throws InvalidKeyException, NoSuchAlgorithmException, ClientProtocolException, IOException{
+	public String createMoMoPayment(HttpServletRequest req, HttpServletResponse resp,double totalPrice, long oderid) throws InvalidKeyException, NoSuchAlgorithmException, ClientProtocolException, IOException{
 		JSONObject json = new JSONObject();
-		long amount = 2000000;
-		long oder_id = 13;
+		long amount = (long) (totalPrice);
+		long oder_id = oderid;
+		Random generator = new Random();
+		long random =(long) generator.nextInt(10000);
 		String partnerCode = MomoPayConfig.PARTNER_CODE;
 		String accessKey = MomoPayConfig.ACCESS_KEY;
 		String secretKey = MomoPayConfig.SECRET_KEY;
@@ -39,7 +40,7 @@ public class MoMoPayUtil {
 		json.put("accessKey", accessKey);
 		json.put("requestId", String.valueOf(System.currentTimeMillis()));
 		json.put("amount", String.valueOf(amount));
-		json.put("orderId", String.valueOf(oder_id));
+		json.put("orderId", String.valueOf(random));
 		json.put("orderInfo", "Thanh toan don hang " +String.valueOf(oder_id));
 		json.put("returnUrl", returnUrl);
 		json.put("notifyUrl", notifyUrl);
@@ -90,6 +91,6 @@ public class MoMoPayUtil {
 			kq.put("message", result.get("message"));
 			kq.put("localMessage", result.get("localMessage"));
 		}
-		return ResponseEntity.status(HttpStatus.OK).body(kq);
+		return "redirect:" + result.get("payUrl");
 	}
 }

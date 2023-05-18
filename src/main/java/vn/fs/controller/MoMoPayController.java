@@ -38,7 +38,7 @@ public class MoMoPayController {
 	public ResponseEntity<?>createMoMoPayment(HttpServletRequest req, HttpServletResponse resp) throws InvalidKeyException, NoSuchAlgorithmException, ClientProtocolException, IOException{
 		JSONObject json = new JSONObject();
 		long amount = 2000000;
-		long oder_id = 13;
+		//long oder_id = 13;
 		String partnerCode = MomoPayConfig.PARTNER_CODE;
 		String accessKey = MomoPayConfig.ACCESS_KEY;
 		String secretKey = MomoPayConfig.SECRET_KEY;
@@ -48,8 +48,8 @@ public class MoMoPayController {
 		json.put("accessKey", accessKey);
 		json.put("requestId", String.valueOf(System.currentTimeMillis()));
 		json.put("amount", String.valueOf(amount));
-		json.put("orderId", String.valueOf(oder_id));
-		json.put("orderInfo", "Thanh toan don hang " +String.valueOf(oder_id));
+		json.put("orderId", "Đơn hàng giao nhanh");
+		json.put("orderInfo", "Thanh toan don hang " );
 		json.put("returnUrl", returnUrl);
 		json.put("notifyUrl", notifyUrl);
 		json.put("requestType", "captureMoMoWallet");

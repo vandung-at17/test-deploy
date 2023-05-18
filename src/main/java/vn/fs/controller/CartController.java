@@ -44,12 +44,15 @@ import vn.fs.model.dto.UserDto;
 import vn.fs.repository.OrderDetailRepository;
 import vn.fs.repository.OrderRepository;
 import vn.fs.repository.ProductRepository;
+import vn.fs.service.IOrderService;
 import vn.fs.service.IProductService;
 import vn.fs.service.IShoppingCartService;
 import vn.fs.service.PaypalService;
+import vn.fs.util.MoMoPayUtil;
 import vn.fs.util.QRCodeGenerator;
 import vn.fs.util.Utils;
 import vn.fs.util.VNPayUtil;
+import vn.fs.util.ZaloPayUtil;
 
 /**
  * @author DongTHD
@@ -77,6 +80,9 @@ public class CartController extends CommomController {
 	private ProductConverter productConverter;
 	@Autowired
 	private OrderRepository orderRepository;
+	
+	@Autowired
+	private IOrderService orderService;
 
 	@Autowired
 	private ProductRepository productRepository;
@@ -89,6 +95,12 @@ public class CartController extends CommomController {
 	
 	@Autowired
 	private VNPayUtil  vnPayUtil;
+	
+	@Autowired
+	private MoMoPayUtil moMoPayUtil;
+	
+	@Autowired
+	private ZaloPayUtil zaloPayUtil;
 
 	public OrderEntity orderFinal = new OrderEntity();
 
@@ -253,16 +265,17 @@ public class CartController extends CommomController {
 		
 		if (StringUtils.equals(checkOut, "vnpay")) {
 			return vnPayUtil.createVNPayPayment(request, response, totalPrice);
-			
 		}
 		if (StringUtils.equals(checkOut, "momopay")) {
 			String cancelUrlVnpay = Utils.getBaseURL(request)+"/"+URL_MOMOPAY_CANCEL;
 			String successUrlVnpay = Utils.getBaseURL(request)+"/"+URL_MOMOPAY_SUCCESS;
+			return moMoPayUtil.createMoMoPayment(request, response, totalPrice, (long)(orderService.sumOrder()+1));
 			
 		}
 		if (StringUtils.equals(checkOut, "zalopay")) {
 			String cancelUrlVnpay = Utils.getBaseURL(request)+"/"+URL_ZALOPAY_CANCEL;
 			String successUrlVnpay = Utils.getBaseURL(request)+"/"+URL_ZALOPAY_SUCCESS;
+			return zaloPayUtil.createVNPayPayment(request, response, totalPrice);
 		}
 		
 		session = request.getSession();

@@ -52,8 +52,8 @@ public class ZaloPayPaymentController {
 		Map<String, Object> zalopay_Params = new HashMap<>();
 		zalopay_Params.put("appid", ZaloPayConfig.APP_ID);
 		zalopay_Params.put("apptransid", getCurrentTimeString("yyMMdd") + "_" + new Date().getTime());
-		//zalopay_Params.put("apptime", System.currentTimeMillis());
-		zalopay_Params.put("apptime", "1683485849715");
+		zalopay_Params.put("apptime", System.currentTimeMillis());
+		//zalopay_Params.put("apptime", "1683485849715");
 		String appuser = "Nguuyễn Văn Dũng";
 		/*zalopay_Params.put("appuser", appuser);*/
 		zalopay_Params.put("appuser", "demo");
@@ -64,7 +64,7 @@ public class ZaloPayPaymentController {
 		zalopay_Params.put("bankcode", "zalopayapp");
 		//zalopay_Params.put("item", new JSONObject(order.getOrder_details()).toString());
 		zalopay_Params.put("item", "[{\"itemid\":\"knb\",\"itemname\":\"kim nguyen bao\",\"itemprice\":198400,\"itemquantity\":1}]");
-		zalopay_Params.put("apptransid ", "230508_01523601383");
+		//zalopay_Params.put("apptransid ", "230508_01523601383");
 		// embeddata
 		// Trong trường hợp Merchant muốn trang cổng thanh toán chỉ hiện thị danh sách
 		// các ngân hàng ATM,

@@ -125,7 +125,7 @@ public class VNPayPaymentController {
 			orderFinal.getOrderId();
 			orderFinal.setUser(userConverter.toEntity(userDto));
 			orderFinal.setAmount(Double.valueOf(vnp_Amount));
-			//orderRepository.save(orderFinal);
+			orderRepository.save(orderFinal);
 			for (CartItemEntity cartItem : cartItems) {
 				OrderDetailEntity orderDetail = new OrderDetailEntity();
 				orderDetail.setQuantity(cartItem.getQuantity());
@@ -133,7 +133,7 @@ public class VNPayPaymentController {
 				orderDetail.setProduct(cartItem.getProduct());
 				double unitPrice = cartItem.getProduct().getPrice();
 				orderDetail.setPrice(unitPrice);
-				//orderDetailRepository.save(orderDetail);
+				orderDetailRepository.save(orderDetail);
 			}
 			commomDataService.sendSimpleEmail(userDto.getEmail(), "Greeny-Shop Xác Nhận Đơn hàng", "aaaa", cartItems,
 					giatri, orderFinal);
@@ -148,8 +148,8 @@ public class VNPayPaymentController {
 			transactionCompleteDto.setBankName(vnp_BankCode);
 			transactionCompleteDto.setMessage("Failed");
 			transactionCompleteDto.setData("");
+			return null;
 		}
-		return null;
 		//return ResponseEntity.status(HttpStatus.OK).body(transactionCompleteDto);
 	}
 }
