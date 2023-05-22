@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import vn.fs.commom.CommomDataService;
-import vn.fs.entities.UserEntity;
 import vn.fs.model.dto.UserDto;
 
 /**

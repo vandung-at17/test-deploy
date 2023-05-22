@@ -21,3 +21,7 @@ spring:
           scope:
            - email
            - public_profile
+twilio:
+   account_sid: AC728ffbb79f835cee32360abd1a2450b2
+   auth_token: f8524828f4b89def4898105117a34db6
+   trial_number: +12524944627

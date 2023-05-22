@@ -2,6 +2,7 @@ package vn.fs.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -42,11 +43,11 @@ public class AccountController {
 
 	@GetMapping(value = "/forgotPassword")
 	public String forgotPassword() {
-
-		return "web/forgotPassword";
+		// return "web/forgotPassword";
+		return "web/accuracy";
 	}
 
-	@PostMapping("/forgotPassword")
+	@PostMapping("/forgotPasswordGmail")
 	public ModelAndView forgotPassowrd(ModelMap model, @RequestParam("email") String email) {
 		List<UserEntity> listUser = userRepository.findAll();
 		for (UserEntity user : listUser) {
@@ -54,19 +55,21 @@ public class AccountController {
 				session.removeAttribute("otp");
 				int random_otp = (int) Math.floor(Math.random() * (999999 - 100000 + 1) + 100000);
 				session.setAttribute("otp", random_otp);
-				String body = "<div>\r\n" + "<h3>Mã xác thực OTP của bạn là: <span style=\"color:#119744; font-weight: bold;\">"
+				String body = "<div>\r\n"
+						+ "<h3>Mã xác thực OTP của bạn là: <span style=\"color:#119744; font-weight: bold;\">"
 						+ random_otp + "</span></h3>\r\n" + "</div>";
 				sendMailService.queue(email, "Quên mật khẩu?", body);
 
 				model.addAttribute("email", email);
-				model.addAttribute("message", "Mã xác thực OTP đã được gửi tới Email : " + user.getEmail() + " , hãy kiểm tra Email của bạn!");
+				model.addAttribute("message", "Mã xác thực OTP đã được gửi tới Email : " + user.getEmail()
+						+ " , hãy kiểm tra Email của bạn!");
 				return new ModelAndView("/web/confirmOtpForgotPassword", model);
 			}
 		}
 		model.addAttribute("error", "Email này chưa đăng ký!");
-		return new ModelAndView("web/forgotPassword", model);
+		return new ModelAndView("web/forgotPasswordGmail", model);
 	}
-	
+
 	@PostMapping("/confirmOtpForgotPassword")
 	public ModelAndView confirm(ModelMap model, @RequestParam("otp") String otp, @RequestParam("email") String email) {
 		if (otp.equals(String.valueOf(session.getAttribute("otp")))) {
@@ -83,7 +86,8 @@ public class AccountController {
 	@PostMapping("/changePassword")
 	public ModelAndView changeForm(ModelMap model,
 			@Valid @ModelAttribute("changePassword") ChangePassword changePassword, BindingResult result,
-			@RequestParam("email") String email, @RequestParam("newPassword") String newPassword, @RequestParam("confirmPassword") String confirmPassword) {
+			@RequestParam("email") String email, @RequestParam("newPassword") String newPassword,
+			@RequestParam("confirmPassword") String confirmPassword) {
 		if (result.hasErrors()) {
 
 			model.addAttribute("newPassword", newPassword);
@@ -110,4 +114,27 @@ public class AccountController {
 		return new ModelAndView("/web/changePassword", model);
 	}
 
+	@PostMapping("/authenticationMethod")
+	public ModelAndView accuracyOTP(ModelMap model, HttpServletRequest request) {
+		String accuracy = request.getParameter("accuracy");
+		if (accuracy.equals("gmail")) {
+			return new ModelAndView("web/forgotPasswordGmail", model);
+		}
+		if (accuracy.equals("sms")) {
+			return new ModelAndView("web/forgotPasswordSMS", model);
+		}
+		if (accuracy.equals("voicecall")) {
+			return new ModelAndView("web/forgotPasswordVoiceCall", model);
+		}
+		return new ModelAndView("web/accuracy", model);
+	}
+	
+	@PostMapping("/forgotPasswordSMS")
+	public ModelAndView forgotPasswordSMS (ModelMap modelMap,@RequestParam("sms") String sms) {
+		return new ModelAndView("web/forgotPasswordSMS", modelMap);
+	}
+	@PostMapping("/forgotPasswordVoiceCall")
+	public ModelAndView forgotPasswordVoiceCall (ModelMap modelMap,@RequestParam("voicecall") String sms) {
+		return new ModelAndView("web/forgotPasswordVoiceCall", modelMap);
+	}
 }
