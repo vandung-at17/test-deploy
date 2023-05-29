@@ -30,6 +30,9 @@
     <link rel="stylesheet" href="vendor/bootstrap/bootstrap.min.css" />
     <link rel="stylesheet" href="css/main.css" />
     <link rel="stylesheet" href="css/user-auth.css" />
+    <link
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"
+	rel="stylesheet" id="bootstrap-css" />
   </head>
   <body>
     <section class="user-form-part">
@@ -108,7 +111,14 @@
                             onclick="hidePass()"/>
                         <label class="form-check-label" for="check" >Hiển thị mật khẩu</label>
                   </div>
-                  
+                  <div class="form-group">
+						<div class="g-recaptcha"
+							data-sitekey="6LclQ0MmAAAAAC8zQg-1AUQbRSHfoGTHq8Is57Tw">
+						</div>
+				  </div>
+                  <div  class="form-group" th:if="${message!=null}">
+					<span class="alert alert-danger" th:text="${message}"></span>
+				  </div>
                   <div class="form-button">
                     <button type="submit">Đăng Ký</button>
                   </div>
@@ -150,5 +160,7 @@
     <script src="js/venobox.js"></script>
     <script src="js/slick.js"></script>
     <script src="js/main.js"></script>
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+	<script src="https://www.google.com/recaptcha/api.js" async defer></script>
   </body>
 </html>

@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import vn.fs.entities.OrderEntity;
+import vn.fs.model.response.StatisticalOrderDetailOfCategory;
 import vn.fs.model.response.StatisticalOrderDetailOfProduct;
 import vn.fs.repository.OrderDetailRepository;
 import vn.fs.repository.OrderRepository;
@@ -102,6 +103,25 @@ public class OrderDetailService implements IOrderDetailService {
 			statisticalOrderDetailOfProducts.add(orderDetailOfProduct);
 		}
 		return statisticalOrderDetailOfProducts;
+	}
+
+	@Override
+	public List<StatisticalOrderDetailOfCategory> findOrderDetailOfCategory(Pageable pageable) {
+		// TODO Auto-generated method stub
+		List<StatisticalOrderDetailOfCategory> statisticalOrderDetailOfCategories = new ArrayList<>();
+		List<Object[]> objects = orderDetailRepository.repoWhereCategory();
+		for (Object[] object : objects) {
+			StatisticalOrderDetailOfCategory orderDetailOfCategory = new StatisticalOrderDetailOfCategory();
+			orderDetailOfCategory.setStatus(Boolean.parseBoolean(object[0].toString()));
+			orderDetailOfCategory.setCategoryName(object[1].toString());
+			orderDetailOfCategory.setQuantity(Integer.parseInt(object[2].toString()));
+			orderDetailOfCategory.setSumPrice(Double.parseDouble(object[3].toString()));
+			orderDetailOfCategory.setAveragePrice(Double.parseDouble(object[4].toString()));
+			orderDetailOfCategory.setMinimumPrice(Double.parseDouble(object[5].toString()));
+			orderDetailOfCategory.setMaximumPrice(Double.parseDouble(object[6].toString()));
+			statisticalOrderDetailOfCategories.add(orderDetailOfCategory);
+		}
+		return statisticalOrderDetailOfCategories;
 	}
 
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.data.domain.Pageable;
 
 import vn.fs.entities.OrderEntity;
+import vn.fs.model.response.StatisticalOrderDetailOfCategory;
 import vn.fs.model.response.StatisticalOrderDetailOfProduct;
 
 public interface IOrderDetailService {
@@ -14,4 +15,5 @@ public interface IOrderDetailService {
 	public int getTotalItem (String name);
 	List<OrderEntity> listAll();
 	public List<StatisticalOrderDetailOfProduct> findAllOrderDetailOfProduct();
+	public List<StatisticalOrderDetailOfCategory> findOrderDetailOfCategory(Pageable pageable);
 }

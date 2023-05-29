@@ -18,9 +18,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import vn.fs.entities.OrderDetailEntity;
 import vn.fs.model.dto.UserDto;
 import vn.fs.model.response.PaginateResponse;
+import vn.fs.model.response.StatisticalOrderDetailOfCategory;
 import vn.fs.model.response.StatisticalOrderDetailOfProduct;
 import vn.fs.repository.OrderDetailRepository;
 import vn.fs.repository.UserRepository;
+import vn.fs.service.ICategoryService;
 import vn.fs.service.IOrderDetailService;
 import vn.fs.service.IUserService;
 
@@ -41,6 +43,9 @@ public class ReportController {
 	
 	@Autowired
 	private IOrderDetailService orderDetailService;
+	
+	@Autowired
+	private ICategoryService categoryService;
 	
 	@Autowired
 	private IUserService userService;
@@ -79,6 +84,7 @@ public class ReportController {
 	}
 
 	// Statistics by category sold
+	//Thống kê theo danh mục đã bán
 	@RequestMapping(value = "/admin/reportCategory")
 	public String reportcategory(Model model, Principal principal, HttpServletRequest request) throws SQLException {
 		if (principal != null) {
@@ -97,13 +103,17 @@ public class ReportController {
 				}
 			}
 		}
-
-
-		OrderDetailEntity orderDetail = new OrderDetailEntity();
-		model.addAttribute("orderDetail", orderDetail);
-		List<Object[]> listReportCommon = orderDetailRepository.repoWhereCategory();
+		int currentPage = 1;
+		int limit = 5;
+		Pageable pageable = PageRequest.of(currentPage-1, limit);
+		List<StatisticalOrderDetailOfCategory> listReportCommon = orderDetailService.findOrderDetailOfCategory(pageable);
 		model.addAttribute("listReportCommon", listReportCommon);
-		return "admin/statistical";
+		PaginateResponse paginateResponse = new PaginateResponse();
+		paginateResponse.setTotalPage((int) categoryService.getTotalItem() /limit);
+		paginateResponse.setPage(currentPage);
+		model.addAttribute("paginate", paginateResponse);
+		
+		return "admin/statisticalCategory";
 	}
 
 	// Statistics of products sold by year

@@ -39,5 +39,13 @@ public class UserService implements IUserService{
     	userRepository.updateAuthenticationType(username, auth);
     	System.out.println("Updated user's authentication type to " + authType);
     }
+	
+	@Override
+	@Transactional
+	public void save(UserDto userDto) {
+		// TODO Auto-generated method stub
+		UserEntity userEntity = userConverter.toEntity(userDto);
+		userRepository.save(userEntity);
+	}
 
 }

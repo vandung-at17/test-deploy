@@ -36,7 +36,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
     public List<Object[]> repo();
     
     // Statistics by category sold
-    @Query(value = "SELECT c.category_name , \r\n"
+    @Query(value = "SELECT c.status,c.category_name , \r\n"
     		+ "SUM(o.quantity) as quantity ,\r\n"
     		+ "SUM(o.quantity * o.price) as sum,\r\n"
     		+ "AVG(o.price) as avg,\r\n"
@@ -45,7 +45,7 @@ public interface OrderDetailRepository extends JpaRepository<OrderDetailEntity, 
     		+ "FROM order_details o\r\n"
     		+ "INNER JOIN products p ON o.product_id = p.product_id\r\n"
     		+ "INNER JOIN categories c ON p.category_id = c.category_id\r\n"
-    		+ "GROUP BY c.category_name;", nativeQuery = true)
+    		+ "GROUP BY c.category_name,c.category_id;", nativeQuery = true)
     public List<Object[]> repoWhereCategory();
     
     // Statistics of products sold by year
