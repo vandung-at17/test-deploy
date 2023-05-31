@@ -20,6 +20,6 @@ public class UserDto {
 	private String avatar;
 	private Date registerDate;
 	private Boolean status;
-	private Collection<RoleEntity> roleEntities;
+	private Collection<RoleEntity> roles;
 	private AuthenticationType authType;
 }

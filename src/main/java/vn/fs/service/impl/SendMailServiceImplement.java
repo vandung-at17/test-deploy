@@ -16,14 +16,14 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import vn.fs.model.dto.MailInfo;
-import vn.fs.service.SendMailService;
+import vn.fs.service.ISendMailService;
 
 /**
  * @author DongTHD
  *
  */
 @Service
-public class SendMailServiceImplement implements SendMailService {
+public class SendMailServiceImplement implements ISendMailService {
 	@Autowired
 	JavaMailSender sender;
 

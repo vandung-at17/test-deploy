@@ -13,7 +13,7 @@ import vn.fs.model.dto.MailInfo;
  *
  */
 @Service
-public interface SendMailService {
+public interface ISendMailService {
 	void run();
 
 	void queue(String to, String subject, String body);

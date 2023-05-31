@@ -12,6 +12,10 @@ import vn.fs.entities.UserEntity;
 
 public class MyUserDetails implements UserDetails{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private UserEntity userEntity;
 	
 	public MyUserDetails(UserEntity userEntity) {

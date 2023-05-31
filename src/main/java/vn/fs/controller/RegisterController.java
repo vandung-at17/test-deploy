@@ -24,7 +24,7 @@ import vn.fs.entities.UserEntity;
 import vn.fs.model.dto.UserDto;
 import vn.fs.repository.UserRepository;
 import vn.fs.service.IUserService;
-import vn.fs.service.SendMailService;
+import vn.fs.service.ISendMailService;
 import vn.fs.service.impl.ReCaptchaValidationService;
 
 /**
@@ -44,7 +44,7 @@ public class RegisterController {
 	private IUserService userService;
 
 	@Autowired
-	SendMailService sendMailService;
+	ISendMailService sendMailService;
 
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
@@ -99,7 +99,7 @@ public class RegisterController {
 			dto.setAvatar("user.png");
 			Collection<RoleEntity> collection = new HashSet<RoleEntity>();
 			collection.add(new RoleEntity("ROLE_USER"));
-			dto.setRoleEntities(collection);
+			dto.setRoles(collection);
 			userService.save(dto);
 
 			session.removeAttribute("otp");

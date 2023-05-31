@@ -117,6 +117,7 @@ public class ReportController {
 	}
 
 	// Statistics of products sold by year
+	// Thống kê sản phẩm bán ra theo năm
 	@RequestMapping(value = "/admin/reportYear")
 	public String reportyear(Model model, Principal principal) throws SQLException {
 		UserDto user = userService.findByEmail(principal.getName());
@@ -127,7 +128,7 @@ public class ReportController {
 		List<Object[]> listReportCommon = orderDetailRepository.repoWhereYear();
 		model.addAttribute("listReportCommon", listReportCommon);
 
-		return "admin/statistical";
+		return "admin/statisticalYear";
 	}
 
 	// Statistics of products sold by month
@@ -141,7 +142,7 @@ public class ReportController {
 		List<Object[]> listReportCommon = orderDetailRepository.repoWhereMonth();
 		model.addAttribute("listReportCommon", listReportCommon);
 
-		return "admin/statistical";
+		return "admin/statisticalMonth";
 	}
 
 	// Statistics of products sold by quarter

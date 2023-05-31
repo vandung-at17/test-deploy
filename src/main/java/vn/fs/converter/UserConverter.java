@@ -15,7 +15,7 @@ public class UserConverter {
 		userDto.setAvatar(userEntity.getAvatar());
 		userDto.setRegisterDate(userEntity.getRegisterDate());
 		userDto.setStatus(userEntity.getStatus());
-		userDto.setRoleEntities(userEntity.getRoles());
+		userDto.setRoles(userEntity.getRoles());
 		return userDto;
 	}
 	
@@ -28,7 +28,7 @@ public class UserConverter {
 		userEntity.setAvatar(userDto.getAvatar());
 		userEntity.setRegisterDate(userDto.getRegisterDate());
 		userEntity.setStatus(userDto.getStatus());
-		userEntity.setRoles(userDto.getRoleEntities());
+		userEntity.setRoles(userDto.getRoles());
 		return userEntity;
 	}
 }

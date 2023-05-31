@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import vn.fs.commom.CommomDataService;
 import vn.fs.model.dto.ProductDto;
 import vn.fs.model.dto.UserDto;
-import vn.fs.repository.ProductRepository;
 import vn.fs.service.IProductService;
 
 /**
@@ -28,8 +27,6 @@ import vn.fs.service.IProductService;
 @Controller
 public class HomeController extends CommomController {
 
-	@Autowired
-	ProductRepository productRepository;
 
 	@Autowired
 	CommomDataService commomDataService;

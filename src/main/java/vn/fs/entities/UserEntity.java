@@ -18,6 +18,7 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.Email;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -45,9 +46,14 @@ public class UserEntity implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 	private String name;
+	
+	@Column(name="email")
+	@Email(message ="Email is not valid")
 	private String email;
+	
 	private String password;
 	private String avatar;
+	
 	@Temporal(TemporalType.DATE)
 	private Date registerDate;
 	private Boolean status;

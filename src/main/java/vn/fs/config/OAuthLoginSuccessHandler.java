@@ -43,7 +43,7 @@ public class OAuthLoginSuccessHandler extends SavedRequestAwareAuthenticationSuc
 		UserDto userDto = userService.findByEmail(username);
 		if (userDto != null) {
 			userService.updateAuthenticationType(username, oauth2ClientName);
-			Collection<RoleEntity> roleEntities = userDto.getRoleEntities();
+			Collection<RoleEntity> roleEntities = userDto.getRoles();
 			for (RoleEntity roleEntity : roleEntities) {
 				if(roleEntity.getName().equals("ROLE_USER")) {
 					hasRoleUser = true;

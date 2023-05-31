@@ -20,7 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import vn.fs.model.dto.ChangePassword;
 import vn.fs.entities.UserEntity;
 import vn.fs.repository.UserRepository;
-import vn.fs.service.SendMailService;
+import vn.fs.service.ISendMailService;
 
 /**
  * @author DongTHD
@@ -39,7 +39,7 @@ public class AccountController {
 	UserRepository userRepository;
 
 	@Autowired
-	SendMailService sendMailService;
+	ISendMailService sendMailService;
 
 	@GetMapping(value = "/forgotPassword")
 	public String forgotPassword() {

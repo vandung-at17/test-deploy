@@ -23,8 +23,6 @@ import vn.fs.entities.CategoryEntity;
 import vn.fs.model.dto.CategoryDto;
 import vn.fs.model.dto.UserDto;
 import vn.fs.model.response.PaginateResponse;
-import vn.fs.repository.CategoryRepository;
-import vn.fs.repository.UserRepository;
 import vn.fs.service.ICategoryService;
 import vn.fs.service.IUserService;
 
@@ -40,13 +38,7 @@ public class CategoryController {
 	HttpSession session;
 
 	@Autowired
-	CategoryRepository categoryRepository;
-	
-	@Autowired
 	private ICategoryService categoryService;
-
-	@Autowired
-	UserRepository userRepository;
 	
 	@Autowired
 	private IUserService userService;
@@ -73,17 +65,6 @@ public class CategoryController {
 		}
 		return userDto;
 	}
-
-	// show list category - table list
-	// Hiển thị danh mục - danh sách thể loại
-//	@ModelAttribute("categories")
-//	public List<CategoryEntity> showCategory(Model model) {
-//		List<CategoryEntity> categories = categoryRepository.findAll();
-//		model.addAttribute("categories", categories);
-//		model.addAttribute("message", message);
-//		message=null;
-//		return categories;
-//	}
 
 	@GetMapping(value = "/categories")
 	public String categories(Model model, Principal principal) {
@@ -125,10 +106,9 @@ public class CategoryController {
 	// get Edit category
 	@GetMapping(value = "/editCategory/{id}")
 	public String editCategory(@PathVariable("id") Long id, ModelMap model) {
-		CategoryEntity category = categoryRepository.findById(id).orElse(null);
-
+//		CategoryEntity category = categoryRepository.findById(id).orElse(null);
+		CategoryDto category = categoryService.getByID(id);
 		model.addAttribute("category", category);
-
 		return "admin/editCategory";
 	}
 

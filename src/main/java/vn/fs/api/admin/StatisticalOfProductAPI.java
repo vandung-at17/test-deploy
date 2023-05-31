@@ -86,7 +86,6 @@ public class StatisticalOfProductAPI{
 		PageLayOut pageLayOut = new PageLayOut();
 		String tbody = "";
 		for (StatisticalOrderDetailOfProduct detailOfProduct : statisticalOrderDetailOfProducts) {
-			int i = 1;
 			Locale localeVN = new Locale("vi", "VN");
 		    NumberFormat currencyVN = NumberFormat.getCurrencyInstance(localeVN);
 		    String sumPrice = currencyVN.format(detailOfProduct.getSumPrice());
@@ -102,7 +101,6 @@ public class StatisticalOfProductAPI{
 					"<td>"+minPrice+"</td>\n" + 
 					"<td>"+maxPrice+"</td>\n" + 
 					"</tr>";
-			i++;
 		}
 		String pagination ="";
 		for (int i = 1; i <= paginateResponse.getTotalPage(); i++) {

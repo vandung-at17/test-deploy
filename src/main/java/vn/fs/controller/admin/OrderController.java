@@ -19,18 +19,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import vn.fs.entities.OrderDetailEntity;
+import vn.fs.entities.OrderEntity;
+import vn.fs.entities.ProductEntity;
+import vn.fs.model.dto.OrderDto;
 import vn.fs.model.dto.OrderExcelExporter;
 import vn.fs.model.dto.UserDto;
-import vn.fs.entities.OrderEntity;
-import vn.fs.entities.OrderDetailEntity;
-import vn.fs.entities.ProductEntity;
-import vn.fs.entities.UserEntity;
 import vn.fs.repository.OrderDetailRepository;
 import vn.fs.repository.OrderRepository;
 import vn.fs.repository.ProductRepository;
-import vn.fs.repository.UserRepository;
+import vn.fs.service.IOrderService;
 import vn.fs.service.IUserService;
-import vn.fs.service.SendMailService;
 import vn.fs.service.impl.OrderDetailService;
 
 
@@ -49,6 +48,9 @@ public class OrderController {
 	private IUserService userService;
 	
 	@Autowired
+	private IOrderService orderService;
+	
+	@Autowired
 	OrderDetailService orderDetailService;
 
 	@Autowired
@@ -59,12 +61,6 @@ public class OrderController {
 
 	@Autowired
 	ProductRepository productRepository;
-
-	@Autowired
-	SendMailService sendMailService;
-
-	@Autowired
-	UserRepository userRepository;
 
 	@ModelAttribute(value = "user")
 	public UserDto user(Model model, Principal principal, UserDto userDto, HttpServletRequest request) {
@@ -91,7 +87,7 @@ public class OrderController {
 	@GetMapping(value = "/orders")
 	public String orders(Model model, Principal principal) {
 
-		List<OrderEntity> orderDetails = orderRepository.findAll();
+		List<OrderDto> orderDetails = orderService.findAll();
 		model.addAttribute("orderDetails", orderDetails);
 
 		return "admin/orders";
@@ -101,8 +97,8 @@ public class OrderController {
 	public ModelAndView detail(ModelMap model, @PathVariable("order_id") Long id) {
 
 		List<OrderDetailEntity> listO = orderDetailRepository.findByOrderId(id);
-
-		model.addAttribute("amount", orderRepository.findById(id).get().getAmount());
+//		model.addAttribute("amount", orderRepository.findById(id).get().getAmount());
+		model.addAttribute("amount", orderService.findById(id).getAmount());
 		model.addAttribute("orderDetail", listO);
 		model.addAttribute("orderId", id);
 		// set active front-end
